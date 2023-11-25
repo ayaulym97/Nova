@@ -1,29 +1,63 @@
 import React, {useState} from 'react';
-import {Text, TextInput, View, StyleSheet} from 'react-native';
+import {Text, TextInput, View, StyleSheet, FlatList} from 'react-native';
 
 import {COLORS} from '../../utils';
 import {scale} from '../../scale';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import {CustomButton} from '../../components/CustomButton';
+import {DriverCard} from './DriverCard';
 
-export function Intercity(props) {
+export interface CityToCityLoadingProps {
+  testID?: string;
+}
+
+export function HitchingRides(props: CityToCityLoadingProps) {
   const [data, setData] = useState({
     from: '',
     to: '',
     date: '',
-    price: '',
   });
-  const [order, setOrder] = useState({});
-
+  const drivers = [
+    {
+      id: 0,
+      name: 'Дастан',
+      date: '23 ноября, 07:30',
+      createdAt: '22 ноября, 22:00',
+      from: 'Алматы',
+      to: 'Бурабай',
+      car: 'Toyota Corolla',
+      price: '10000',
+    },
+    {
+      id: 1,
+      name: 'Амир',
+      date: '23 ноября, 07:30',
+      createdAt: '22 ноября, 22:00',
+      from: 'Алматы',
+      to: 'Бурабай',
+      car: 'HYUNDAI ELANTRA 2019',
+      price: '5000',
+    },
+  ];
+  const directions = [
+    {title: 'Астана - Бурабай (189)', from: 'Астана', to: 'Бурабай'},
+    {title: 'Астана - Караганда (167)', from: 'Астана', to: 'Караганда'},
+    {title: 'Астана - Кокшетау (100)', from: 'Астана', to: 'Кокшетау'},
+    {title: 'Астана - Алматы (100)', from: 'Астана', to: 'Алматы'},
+  ];
   const handleChange = (name, value) => {
     setData({
       ...data,
       [name]: value,
     });
   };
-
-  const handleOrder = () => {};
+  const handleDir = dir => {
+    setData({
+      from: dir.from,
+      to: dir.to,
+    });
+  };
   return (
     <View style={styles.root}>
       <View style={styles.inputRow}>
@@ -89,60 +123,29 @@ export function Intercity(props) {
           style={styles.arrowdown}
         />
       </View>
-      <View style={[styles.inputRow, {marginTop: scale(16)}]}>
-        <Text style={styles.priceTxt}>₸</Text>
-        <TextInput
-          placeholder="Предложите цену"
-          placeholderTextColor={COLORS.GRAY}
-          value={data.price}
-          style={[styles.input]}
-          onChangeText={value => handleChange('price', value)}
-        />
-        <Icon
-          name="right"
-          size={scale(20)}
-          color={COLORS.GRAY}
-          style={styles.arrowdown}
-        />
-      </View>
       <View style={styles.line} />
-      {data.from.length !== 0 && data.to.length !== 0 && (
-        <View style={styles.info}>
-          <Icon
-            name="infocirlceo"
-            size={scale(20)}
-            color={'white'}
-            style={styles.arrowdown}
+      {data.from.length === 0 && data.to.length === 0 ? (
+        directions.map(dir => (
+          <CustomButton
+            key={dir.title}
+            text={dir.title}
+            style={{marginTop: scale(8)}}
+            txtStyle={styles.dirTxt}
+            onPress={() => handleDir(dir)}
           />
-          <Text style={styles.infoTxt}>
-            Средний тариф по маршруту: 12 000 ₸
-          </Text>
-        </View>
+        ))
+      ) : (
+        <FlatList
+          keyExtractor={item => item.id}
+          data={drivers}
+          renderItem={({item}) => <DriverCard item={item} />}
+        />
       )}
-      <CustomButton
-        text={'Заказать'}
-        style={styles.orderBtn}
-        txtStyle={styles.orderTxt}
-        onPress={() => handleOrder()}
-      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  orderBtn: {
-    marginTop: scale(14),
-    backgroundColor: COLORS.GREEN,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: scale(24),
-    paddingVertical: scale(12),
-  },
-  orderTxt: {
-    color: COLORS.PRIMARY,
-    fontSize: scale(19),
-    fontWeight: '800',
-  },
   root: {
     flex: 1,
     backgroundColor: COLORS.PRIMARY,
@@ -161,18 +164,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '900',
   },
-  info: {
-    flexDirection: 'row',
-    backgroundColor: '#1F4468',
-    borderRadius: scale(9),
-    padding: scale(8),
-  },
-  infoTxt: {
-    maxWidth: '80%',
-    color: 'white',
-    fontSize: scale(16),
-    marginLeft: scale(8),
-  },
+
   oval: {
     color: COLORS.PRIMARY,
     fontSize: scale(18),
@@ -201,11 +193,5 @@ const styles = StyleSheet.create({
   dirTxt: {
     color: COLORS.BLUE,
     fontSize: scale(16),
-  },
-  priceTxt: {
-    color: 'white',
-    fontSize: scale(19),
-    fontWeight: '900',
-    margin: scale(10),
   },
 });

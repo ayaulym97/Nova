@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import City from '../screens/cityRides';
 import {Intercity} from '../screens/ Intercity';
+import {COLORS} from '../utils';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,10 @@ export const IntercityStack = () => {
         component={Intercity}
         options={{
           title: 'Межгород',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: COLORS.PRIMARY,
+          },
         }}
       />
     </Stack.Navigator>

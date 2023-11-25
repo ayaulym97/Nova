@@ -5794,6 +5794,11 @@ react-native-codegen@^0.71.5:
     jscodeshift "^0.14.0"
     nullthrows "^1.1.1"
 
+react-native-date-picker@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-4.3.3.tgz#5ca4ca10283538ab9307b7f2dc6b83233ded122b"
+  integrity sha512-Lq2hGZkwoyCMsxi/uw4KVGu4/xdPZ8AHEx2SU5KY2mipHFpX+r4n5/gXa+rpCRkARJaTFYPZ7S59bT9KMh7fGw==
+
 react-native-gesture-handler@^2.14.0:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.14.0.tgz#d6aec0d8b2e55c67557fd6107e828c0a1a248be8"
