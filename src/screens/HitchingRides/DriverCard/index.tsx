@@ -4,13 +4,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {scale} from '../../../scale';
 import {COLORS} from '../../../utils';
 import {CustomButton} from '../../../components/CustomButton';
-export const DriverCard = ({item}) => {
+import {Logo} from '../../../components/Logo';
+export const DriverCard = ({item, onPress}) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.logoBox}>
-        <View style={styles.logo}>
-          <Icon name="person" size={scale(30)} color={'white'} />
-        </View>
+        <Logo size={scale(30)} style={styles.logo} />
         <Text style={styles.name}>{item.name}</Text>
         <View style={styles.container}>
           <Icon name="star" size={scale(12)} color={'white'} />

@@ -7,17 +7,22 @@ import {scale} from '../../scale';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {CustomButton} from '../../components/CustomButton';
 import {DriverCard} from './DriverCard';
+import {DriverDetailsModal} from './DriverDetailsModal';
+import {useNavigation} from '@react-navigation/native';
 
 export interface CityToCityLoadingProps {
   testID?: string;
 }
 
 export function HitchingRides(props: CityToCityLoadingProps) {
+  const navigation = useNavigation();
   const [data, setData] = useState({
     from: '',
     to: '',
     date: '',
   });
+  const [driver, setDriver] = useState({});
+  const [modalVisible, setModalVisible] = useState(Boolean);
   const drivers = [
     {
       id: 0,
@@ -57,6 +62,13 @@ export function HitchingRides(props: CityToCityLoadingProps) {
       from: dir.from,
       to: dir.to,
     });
+  };
+  const handleDriver = driver => {
+    setModalVisible(true);
+    setDriver(driver);
+  };
+  const handleOrder = () => {
+    navigation.navigate('ChooseSeat');
   };
   return (
     <View style={styles.root}>
@@ -138,9 +150,17 @@ export function HitchingRides(props: CityToCityLoadingProps) {
         <FlatList
           keyExtractor={item => item.id}
           data={drivers}
-          renderItem={({item}) => <DriverCard item={item} />}
+          renderItem={({item}) => (
+            <DriverCard item={item} onPress={() => handleDriver(item)} />
+          )}
         />
       )}
+      <DriverDetailsModal
+        driver={driver}
+        modalVisible={modalVisible}
+        closeModal={() => setModalVisible(false)}
+        handleOrder={() => handleOrder()}
+      />
     </View>
   );
 }
