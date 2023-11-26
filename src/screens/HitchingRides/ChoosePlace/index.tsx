@@ -11,7 +11,9 @@ import {COLORS} from '../../../utils';
 import {scale} from '../../../scale';
 import {CustomButton} from '../../../components/CustomButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useNavigation} from '@react-navigation/native';
 export const ChooseSeat = () => {
+  const navigation = useNavigation();
   const [seats, setSeats] = useState([]);
 
   const handleSeat = seat => {
@@ -82,7 +84,7 @@ export const ChooseSeat = () => {
           text={'Заказать'}
           style={styles.orderBtn}
           txtStyle={styles.orderTxt}
-          onPress={() => handleOrder()}
+          onPress={() => navigation.navigate('RateTrip')}
         />
       </View>
     </View>

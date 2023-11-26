@@ -2,7 +2,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {DrawerCustomView} from './DrawerCustomView';
 
-import {CityStack} from '../CityStack';
+import {CityStack} from '../MyOrdersStack';
 import {IntercityStack} from '../IntercityStack';
 import {DRAWER_ROUTES} from './const';
 

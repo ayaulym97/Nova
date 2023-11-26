@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-const City = () => {
-  return <View style={styles.container} />;
+import {FlatList, StyleSheet, View} from 'react-native';
+const OrderDetails = () => {
+  return <View />;
 };
 
 const styles = StyleSheet.create({
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default City;
+export default OrderDetails;
